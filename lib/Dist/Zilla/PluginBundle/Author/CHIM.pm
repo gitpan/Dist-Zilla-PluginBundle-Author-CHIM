@@ -2,8 +2,10 @@ package Dist::Zilla::PluginBundle::Author::CHIM;
 
 # ABSTRACT: Dist::Zilla configuration the way CHIM does it
 our $AUTHORITY = 'cpan:CHIM'; # AUTHORITY
-our $VERSION = '0.01'; # VERSION
+our $VERSION = '0.02'; # VERSION
 
+use strict;
+use warnings;
 use Moose;
 
 use Dist::Zilla 4.3;
@@ -54,6 +56,11 @@ sub configure {
         # modified files
         [ 'OurPkgVersion'           => {} ],
         [ 'PodWeaver'               => {} ],
+        [ 'NextRelease'             => {
+                'time_zone' => 'UTC',
+                'format'    => '%-7v %{EEE MMM d HH:mm:ss yyyy ZZZ}d'
+            }
+        ],
         [ 'Authority'               => {
                 'authority'      => $self->authority,
                 'do_metadata'    => 1,
@@ -118,6 +125,10 @@ sub configure {
         [ 'MakeMaker'               => {} ],
         [ 'Manifest'                => {} ],
 
+        # release
+        [ 'ConfirmRelease'          => {} ],
+        [ 'UploadToCPAN'            => {} ],
+
     );
 }
 
@@ -135,7 +146,7 @@ Dist::Zilla::PluginBundle::Author::CHIM - Dist::Zilla configuration the way CHIM
 
 =head1 VERSION
 
-version 0.01
+version 0.02
 
 =head1 DESCRIPTION
 
@@ -148,6 +159,9 @@ following dist.ini:
     ;; modified files
     [OurPkgVersion]
     [PodWeaver]
+    [NextRelease]
+    time_zone = UTC
+    format    = %-7v %{EEE MMM d HH:mm:ss yyyy ZZZ}d
     [Authority]
     authority      = %{authority}
     do_metadata    = 1
@@ -202,6 +216,10 @@ following dist.ini:
     ;; build
     [MakeMaker]
     [Manifest]
+
+    ;; release
+    [ConfirmRelease]
+    [UploadToCPAN]
 
 =head1 SYNOPSYS
 

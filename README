@@ -3,7 +3,7 @@ NAME
     way CHIM does it
 
 VERSION
-    version 0.01
+    version 0.02
 
 DESCRIPTION
     This is a Dist::Zilla PluginBundle. It is roughly equivalent to the
@@ -15,6 +15,9 @@ DESCRIPTION
         ;; modified files
         [OurPkgVersion]
         [PodWeaver]
+        [NextRelease]
+        time_zone = UTC
+        format    = %-7v %{EEE MMM d HH:mm:ss yyyy ZZZ}d
         [Authority]
         authority      = %{authority}
         do_metadata    = 1
@@ -69,6 +72,10 @@ DESCRIPTION
         ;; build
         [MakeMaker]
         [Manifest]
+
+        ;; release
+        [ConfirmRelease]
+        [UploadToCPAN]
 
 SYNOPSYS
         # in dist.ini

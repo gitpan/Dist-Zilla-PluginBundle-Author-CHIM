@@ -6,6 +6,7 @@ META.yml
 Makefile.PL
 README
 dist.ini
+eg/dist.ini
 lib/Dist/Zilla/PluginBundle/Author/CHIM.pm
 t/00-compile.t
 t/release-distmeta.t

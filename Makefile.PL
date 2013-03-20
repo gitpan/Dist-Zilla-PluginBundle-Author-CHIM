@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-
+use 5.010001;
 
 use ExtUtils::MakeMaker 6.30;
 
@@ -29,9 +29,14 @@ my %WriteMakefileArgs = (
     "Dist::Zilla::Plugin::ReadmeFromPod" => "0.18",
     "Dist::Zilla::Plugin::Test::Compile" => "2.001",
     "Dist::Zilla::Plugin::Test::Kwalitee" => "2.03",
-    "Dist::Zilla::Plugin::Test::Version" => "0.002004"
+    "Dist::Zilla::Plugin::Test::Version" => "0.002004",
+    "Moose" => "2.0",
+    "Pod::Coverage::TrustPod" => 0,
+    "Test::CPAN::Meta" => 0,
+    "strict" => 0,
+    "warnings" => 0
   },
-  "VERSION" => "0.01",
+  "VERSION" => "0.02",
   "test" => {
     "TESTS" => "t/*.t"
   }
