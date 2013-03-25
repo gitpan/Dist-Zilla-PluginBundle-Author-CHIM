@@ -5,6 +5,7 @@ author:
 build_requires: {}
 configure_requires:
   ExtUtils::MakeMaker: 6.30
+  File::ShareDir::Install: 0.03
 dynamic_config: 0
 generated_by: 'Dist::Zilla version 4.300030, CPAN::Meta::Converter version 2.120921'
 license: perl
@@ -24,9 +25,12 @@ no_index:
   package:
     - DB
 provides:
+  Dist::Zilla::MintingProfile::Author::CHIM:
+    file: lib/Dist/Zilla/MintingProfile/Author/CHIM.pm
+    version: 0.03
   Dist::Zilla::PluginBundle::Author::CHIM:
     file: lib/Dist/Zilla/PluginBundle/Author/CHIM.pm
-    version: 0.02
+    version: 0.03
 requires:
   Dist::Zilla: 4.300030
   Dist::Zilla::Plugin::Authority: 1.006
@@ -48,5 +52,5 @@ resources:
   bugtracker: https://github.com/Wu-Wu/Dist-Zilla-PluginBundle-Author-CHIM/issues
   homepage: https://metacpan.org/release/Dist-Zilla-PluginBundle-Author-CHIM
   repository: git://github.com/Wu-Wu/Dist-Zilla-PluginBundle-Author-CHIM.git
-version: 0.02
+version: 0.03
 x_authority: cpan:CHIM

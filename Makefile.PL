@@ -6,6 +6,8 @@ use 5.010001;
 
 use ExtUtils::MakeMaker 6.30;
 
+use File::ShareDir::Install;
+install_share module => "Dist::Zilla::MintingProfile::Author::CHIM", "profiles";
 
 
 my %WriteMakefileArgs = (
@@ -13,7 +15,8 @@ my %WriteMakefileArgs = (
   "AUTHOR" => "Anton Gerasimov <chim\@cpan.org>",
   "BUILD_REQUIRES" => {},
   "CONFIGURE_REQUIRES" => {
-    "ExtUtils::MakeMaker" => "6.30"
+    "ExtUtils::MakeMaker" => "6.30",
+    "File::ShareDir::Install" => "0.03"
   },
   "DISTNAME" => "Dist-Zilla-PluginBundle-Author-CHIM",
   "EXE_FILES" => [],
@@ -36,7 +39,7 @@ my %WriteMakefileArgs = (
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "0.02",
+  "VERSION" => "0.03",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -61,5 +64,10 @@ delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
 
 WriteMakefile(%WriteMakefileArgs);
 
+{
+package
+MY;
+use File::ShareDir::Install qw(postamble);
+}
 
 

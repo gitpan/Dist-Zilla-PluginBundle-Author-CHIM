@@ -1,5 +1,8 @@
 Revision history for Perl extension Dist::Zilla::PluginBundle::Author::CHIM
 
+0.03    Mon Mar 25 10:10:54 2013 +0000
+    - added basic minting profile
+
 0.02    Wed Mar 20 15:56:30 2013 +0000
     - updated prerequisites
     - added plugins NextRelease, ConfirmRelease, UploadToCPAN

@@ -3,7 +3,7 @@ NAME
     way CHIM does it
 
 VERSION
-    version 0.02
+    version 0.03
 
 DESCRIPTION
     This is a Dist::Zilla PluginBundle. It is roughly equivalent to the

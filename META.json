@@ -31,7 +31,8 @@
    "prereqs" : {
       "configure" : {
          "requires" : {
-            "ExtUtils::MakeMaker" : "6.30"
+            "ExtUtils::MakeMaker" : "6.30",
+            "File::ShareDir::Install" : "0.03"
          }
       },
       "develop" : {
@@ -64,9 +65,13 @@
       }
    },
    "provides" : {
+      "Dist::Zilla::MintingProfile::Author::CHIM" : {
+         "file" : "lib/Dist/Zilla/MintingProfile/Author/CHIM.pm",
+         "version" : "0.03"
+      },
       "Dist::Zilla::PluginBundle::Author::CHIM" : {
          "file" : "lib/Dist/Zilla/PluginBundle/Author/CHIM.pm",
-         "version" : "0.02"
+         "version" : "0.03"
       }
    },
    "release_status" : "stable",
@@ -81,7 +86,7 @@
          "web" : "https://github.com/Wu-Wu/Dist-Zilla-PluginBundle-Author-CHIM"
       }
    },
-   "version" : "0.02",
+   "version" : "0.03",
    "x_authority" : "cpan:CHIM"
 }
 
