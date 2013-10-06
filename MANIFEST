@@ -14,8 +14,10 @@ profiles/default/profile.ini
 profiles/default/skel/Changes
 profiles/default/skel/dist.ini
 t/00-compile.t
+t/author-test-eol.t
 t/release-distmeta.t
 t/release-kwalitee.t
+t/release-no-tabs.t
 t/release-pod-coverage.t
 t/release-pod-syntax.t
 t/release-test-version.t

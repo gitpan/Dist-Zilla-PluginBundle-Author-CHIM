@@ -5,7 +5,7 @@ package Dist::Zilla::MintingProfile::Author::CHIM;
 use strict;
 use warnings;
 
-our $VERSION = '0.03'; # VERSION
+our $VERSION = '0.04'; # VERSION
 our $AUTHORITY = 'cpan:CHIM'; # AUTHORITY
 
 use Moose;
@@ -26,7 +26,7 @@ Dist::Zilla::MintingProfile::Author::CHIM - Make new modules like CHIM does
 
 =head1 VERSION
 
-version 0.03
+version 0.04
 
 =head1 DESCRIPTION
 

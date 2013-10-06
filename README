@@ -3,7 +3,7 @@ NAME
     way CHIM does it
 
 VERSION
-    version 0.03
+    version 0.04
 
 DESCRIPTION
     This is a Dist::Zilla PluginBundle. It is roughly equivalent to the
@@ -27,9 +27,9 @@ DESCRIPTION
         [License]
         [ReadmeFromPod]
         [ReadmeAnyFromPod]
-        [ReadmeAnyFromPod / ReadmePodInRoot]
-        type     = pod
-        filename = README.pod
+        [ReadmeAnyFromPod / ReadmeMdInRoot]
+        type     = markdown
+        filename = README.md
         location = root
 
         [MetaNoIndex]
@@ -68,6 +68,8 @@ DESCRIPTION
         [PodCoverageTests]
         [Test::Version]
         [Test::Kwalitee]
+        [Test::EOL]
+        [Test::NoTabs]
 
         ;; build
         [MakeMaker]
@@ -99,6 +101,10 @@ ATTRIBUTES
   github_reponame
     Indicates github.com's repository name. Default value is set to value of
     the *dist*-attribute name.
+
+  fake_release
+    Replaces UploadToCPAN with FakeRelease so release won't actually
+    uploaded. Default value is *0*.
 
 METHODS
   configure

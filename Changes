@@ -1,12 +1,30 @@
 Revision history for Perl extension Dist::Zilla::PluginBundle::Author::CHIM
 
+0.04    Sun Oct 6 13:20:29 2013 +0000
+
+    [ FEATURES ]
+    - added plugin FakeRelease
+    - more files to exclude via .gitignore
+    - added a few versions of the perl to the .tavis.yml
+    - in root directory README.pod replaced by README.md
+    - added plugins Test::EOL and Test::NoTabs
+
+    [ META ]
+    - minimum perl version set to 5.8.9
+
 0.03    Mon Mar 25 10:10:54 2013 +0000
+
+    [ FEATURES ]
     - added basic minting profile
 
 0.02    Wed Mar 20 15:56:30 2013 +0000
+    [ META ]
     - updated prerequisites
+
+    [ FEATURES ]
     - added plugins NextRelease, ConfirmRelease, UploadToCPAN
     - added .travis.yml
 
 0.01    Sun Mar 17 08:22:52 2013 +0000
+
     - initial release

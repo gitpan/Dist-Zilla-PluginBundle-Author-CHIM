@@ -2,7 +2,7 @@ package Dist::Zilla::PluginBundle::Author::CHIM;
 
 # ABSTRACT: Dist::Zilla configuration the way CHIM does it
 our $AUTHORITY = 'cpan:CHIM'; # AUTHORITY
-our $VERSION = '0.03'; # VERSION
+our $VERSION = '0.04'; # VERSION
 
 use strict;
 use warnings;
@@ -46,6 +46,13 @@ has github_repopath => (
     default  => sub { join '/' => 'github.com', $_[0]->github_username, $_[0]->github_reponame },
 );
 
+has fake_release => (
+    is       => 'ro',
+    isa      => 'Bool',
+    lazy     => 1,
+    default  => sub { $_[0]->payload->{fake_release} || 0 },
+);
+
 sub configure {
     my ($self) = @_;
 
@@ -73,9 +80,9 @@ sub configure {
         [ 'ReadmeFromPod'           => {} ],
         [ 'ReadmeAnyFromPod'        => {} ],
         [ 'ReadmeAnyFromPod'        =>
-            'ReadmePodInRoot' => {
-                'type'     => 'pod',
-                'filename' => 'README.pod',
+            'ReadmeMdInRoot' => {
+                'type'     => 'markdown',
+                'filename' => 'README.md',
                 'location' => 'root',
             },
         ],
@@ -120,6 +127,8 @@ sub configure {
         [ 'PodCoverageTests'        => {} ],
         [ 'Test::Version'           => {} ],
         [ 'Test::Kwalitee'          => {} ],
+        [ 'Test::EOL'               => {} ],
+        [ 'Test::NoTabs'            => {} ],
 
         # build
         [ 'MakeMaker'               => {} ],
@@ -127,7 +136,7 @@ sub configure {
 
         # release
         [ 'ConfirmRelease'          => {} ],
-        [ 'UploadToCPAN'            => {} ],
+        [ ($self->fake_release ? 'FakeRelease' : 'UploadToCPAN') => {} ],
 
     );
 }
@@ -146,7 +155,7 @@ Dist::Zilla::PluginBundle::Author::CHIM - Dist::Zilla configuration the way CHIM
 
 =head1 VERSION
 
-version 0.03
+version 0.04
 
 =head1 DESCRIPTION
 
@@ -171,9 +180,9 @@ following dist.ini:
     [License]
     [ReadmeFromPod]
     [ReadmeAnyFromPod]
-    [ReadmeAnyFromPod / ReadmePodInRoot]
-    type     = pod
-    filename = README.pod
+    [ReadmeAnyFromPod / ReadmeMdInRoot]
+    type     = markdown
+    filename = README.md
     location = root
 
     [MetaNoIndex]
@@ -212,6 +221,8 @@ following dist.ini:
     [PodCoverageTests]
     [Test::Version]
     [Test::Kwalitee]
+    [Test::EOL]
+    [Test::NoTabs]
 
     ;; build
     [MakeMaker]
@@ -248,6 +259,10 @@ Indicates github.com's account name. Default value is I<Wu-Wu>.
 =head2 github_reponame
 
 Indicates github.com's repository name. Default value is set to value of the I<dist>-attribute name.
+
+=head2 fake_release
+
+Replaces UploadToCPAN with FakeRelease so release won't actually uploaded. Default value is I<0>.
 
 =head1 METHODS
 

@@ -4,8 +4,8 @@ package {{$name}};
 
 use strict;
 use warnings;
-use 5.01001;
-use Carp ();
+use 5.008009;
+use Carp;
 
 # VERSION
 # AUTHORITY
