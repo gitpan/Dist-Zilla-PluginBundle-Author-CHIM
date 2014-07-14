@@ -11,7 +11,7 @@ use Carp;
 # AUTHORITY
 
 
-1; # End of {{$name}}
+1;
 
 __END__
 

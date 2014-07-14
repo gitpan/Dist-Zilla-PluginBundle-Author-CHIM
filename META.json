@@ -82,11 +82,11 @@
    "provides" : {
       "Dist::Zilla::MintingProfile::Author::CHIM" : {
          "file" : "lib/Dist/Zilla/MintingProfile/Author/CHIM.pm",
-         "version" : "0.050001"
+         "version" : "0.050002"
       },
       "Dist::Zilla::PluginBundle::Author::CHIM" : {
          "file" : "lib/Dist/Zilla/PluginBundle/Author/CHIM.pm",
-         "version" : "0.050001"
+         "version" : "0.050002"
       }
    },
    "release_status" : "stable",
@@ -97,11 +97,11 @@
       "homepage" : "https://metacpan.org/release/Dist-Zilla-PluginBundle-Author-CHIM",
       "repository" : {
          "type" : "git",
-         "url" : "git://github.com/Wu-Wu/Dist-Zilla-PluginBundle-Author-CHIM.git",
+         "url" : "https://github.com/Wu-Wu/Dist-Zilla-PluginBundle-Author-CHIM.git",
          "web" : "https://github.com/Wu-Wu/Dist-Zilla-PluginBundle-Author-CHIM"
       }
    },
-   "version" : "0.050001",
+   "version" : "0.050002",
    "x_authority" : "cpan:CHIM"
 }
 

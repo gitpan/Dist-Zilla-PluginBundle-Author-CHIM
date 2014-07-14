@@ -3,7 +3,7 @@ NAME
     way CHIM does it
 
 VERSION
-    version 0.050001
+    version 0.050002
 
 DESCRIPTION
     This is a Dist::Zilla PluginBundle. It is roughly equivalent to the
@@ -49,7 +49,7 @@ DESCRIPTION
         ;; set META resources
         [MetaResources]
         homepage        = https://metacpan.org/release/%{dist}
-        repository.url  = git://%{github_repopath}.git
+        repository.url  = https://%{github_repopath}.git
         repository.web  = https://%{github_repopath}
         bugtracker.web  = https://%{github_repopath}/issues
         repository.type = git
@@ -92,7 +92,7 @@ SYNOPSYS
         github_username = Wu-Wu
         github_reponame = perl5-My-Very-Cool-Module
 
-ATTRIBUTES
+OPTIONS
   dist
     The name of the distribution. Required.
 
@@ -110,6 +110,17 @@ ATTRIBUTES
   fake_release
     Replaces UploadToCPAN with FakeRelease so release won't actually
     uploaded. Default value is *0*.
+
+  NextRelease.time_zone
+    Timezone for entries in Changes file. Default value is "UTC".
+
+    See more at Dist::Zilla::Plugin::NextRelease.
+
+  NextRelease.format
+    Format of entry in *Changes* file. Default value is "%-7v %{EEE MMM d
+    HH:mm:ss yyyy ZZZ}d".
+
+    See more at Dist::Zilla::Plugin::NextRelease.
 
   MetaNoIndex.directory
     Exclude directories (recursively with files) from indexing by
@@ -146,6 +157,15 @@ ATTRIBUTES
 
     See more at Dist::Zilla::Plugin::MetaNoIndex.
 
+  GatherDir.exclude_match
+    Regular expression pattern which causes not to gather matched files. No
+    defaults. Allowed multiple values, e.g.
+
+        GatherDir.exclude_match = ^foo.*
+        GatherDir.exclude_match = ^ba(r|z)\/qux.*
+
+    See more at Dist::Zilla::Plugin::GatherDir.
+
 METHODS
   configure
     Bundle's configuration for role Dist::Zilla::Role::PluginBundle::Easy.
@@ -158,6 +178,10 @@ SEE ALSO
     Dist::Zilla::Plugin::Authority
 
     Dist::Zilla::Plugin::MetaNoIndex
+
+    Dist::Zilla::Plugin::NextRelease
+
+    Dist::Zilla::Plugin::GatherDir
 
 AUTHOR
     Anton Gerasimov <chim@cpan.org>

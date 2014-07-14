@@ -32,10 +32,10 @@ no_index:
 provides:
   Dist::Zilla::MintingProfile::Author::CHIM:
     file: lib/Dist/Zilla/MintingProfile/Author/CHIM.pm
-    version: '0.050001'
+    version: '0.050002'
   Dist::Zilla::PluginBundle::Author::CHIM:
     file: lib/Dist/Zilla/PluginBundle/Author/CHIM.pm
-    version: '0.050001'
+    version: '0.050002'
 requires:
   Dist::Zilla: '5.010'
   Dist::Zilla::Plugin::Authority: '1.006'
@@ -59,6 +59,6 @@ requires:
 resources:
   bugtracker: https://github.com/Wu-Wu/Dist-Zilla-PluginBundle-Author-CHIM/issues
   homepage: https://metacpan.org/release/Dist-Zilla-PluginBundle-Author-CHIM
-  repository: git://github.com/Wu-Wu/Dist-Zilla-PluginBundle-Author-CHIM.git
-version: '0.050001'
+  repository: https://github.com/Wu-Wu/Dist-Zilla-PluginBundle-Author-CHIM.git
+version: '0.050002'
 x_authority: cpan:CHIM

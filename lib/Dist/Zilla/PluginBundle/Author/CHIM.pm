@@ -2,7 +2,7 @@ package Dist::Zilla::PluginBundle::Author::CHIM;
 
 # ABSTRACT: Dist::Zilla configuration the way CHIM does it
 our $AUTHORITY = 'cpan:CHIM'; # AUTHORITY
-our $VERSION = '0.050001'; # VERSION
+our $VERSION = '0.050002'; # VERSION
 
 use strict;
 use warnings;
@@ -60,6 +60,7 @@ sub mvp_multivalue_args {
         MetaNoIndex.package
         MetaNoIndex.namespace
         MetaNoIndex.file
+        GatherDir.exclude_match
     );
 }
 
@@ -85,16 +86,25 @@ sub configure {
         ),
     };
 
+    my $gather_dir__options = {
+        ( $self->payload->{'GatherDir.exclude_match'}
+            ? ( 'exclude_match' => $self->payload->{'GatherDir.exclude_match'} )
+            : ( )
+        ),
+    };
+
     $self->add_plugins(
-        [ 'GatherDir'               => {} ],
+        [ 'GatherDir'               => $gather_dir__options ],
         [ 'PruneCruft'              => {} ],
 
         # modified files
         [ 'OurPkgVersion'           => {} ],
         [ 'PodWeaver'               => {} ],
         [ 'NextRelease'             => {
-                'time_zone' => 'UTC',
-                'format'    => '%-7v %{EEE MMM d HH:mm:ss yyyy ZZZ}d'
+                'time_zone' => $self->payload->{'NextRelease.time_zone'} ||
+                                    'UTC',
+                'format'    => $self->payload->{'NextRelease.format'} ||
+                                    '%-7v %{EEE MMM d HH:mm:ss yyyy ZZZ}d'
             }
         ],
         [ 'Authority'               => {
@@ -128,7 +138,7 @@ sub configure {
         # set META resources
         [ 'MetaResources'           => {
                 'homepage'        => 'https://metacpan.org/release/' . $self->dist,
-                'repository.url'  => 'git://'   . $self->github_repopath . '.git',
+                'repository.url'  => 'https://' . $self->github_repopath . '.git',
                 'repository.web'  => 'https://' . $self->github_repopath,
                 'bugtracker.web'  => 'https://' . $self->github_repopath . '/issues',
                 'repository.type' => 'git',
@@ -188,7 +198,7 @@ Dist::Zilla::PluginBundle::Author::CHIM - Dist::Zilla configuration the way CHIM
 
 =head1 VERSION
 
-version 0.050001
+version 0.050002
 
 =head1 DESCRIPTION
 
@@ -235,7 +245,7 @@ following dist.ini:
     ;; set META resources
     [MetaResources]
     homepage        = https://metacpan.org/release/%{dist}
-    repository.url  = git://%{github_repopath}.git
+    repository.url  = https://%{github_repopath}.git
     repository.web  = https://%{github_repopath}
     bugtracker.web  = https://%{github_repopath}/issues
     repository.type = git
@@ -281,7 +291,7 @@ following dist.ini:
     github_username = Wu-Wu
     github_reponame = perl5-My-Very-Cool-Module
 
-=head1 ATTRIBUTES
+=head1 OPTIONS
 
 =head2 dist
 
@@ -303,6 +313,18 @@ Indicates github.com's repository name. Default value is set to value of the I<d
 =head2 fake_release
 
 Replaces UploadToCPAN with FakeRelease so release won't actually uploaded. Default value is I<0>.
+
+=head2 NextRelease.time_zone
+
+Timezone for entries in B<Changes> file. Default value is C<UTC>.
+
+See more at L<Dist::Zilla::Plugin::NextRelease>.
+
+=head2 NextRelease.format
+
+Format of entry in I<Changes> file. Default value is C<%-7v %{EEE MMM d HH:mm:ss yyyy ZZZ}d>.
+
+See more at L<Dist::Zilla::Plugin::NextRelease>.
 
 =head2 MetaNoIndex.directory
 
@@ -342,6 +364,16 @@ multiple values, e.g.
 
 See more at L<Dist::Zilla::Plugin::MetaNoIndex>.
 
+=head2 GatherDir.exclude_match
+
+Regular expression pattern which causes not to gather matched files. No defaults. Allowed
+multiple values, e.g.
+
+    GatherDir.exclude_match = ^foo.*
+    GatherDir.exclude_match = ^ba(r|z)\/qux.*
+
+See more at L<Dist::Zilla::Plugin::GatherDir>.
+
 =head1 METHODS
 
 =head2 configure
@@ -357,6 +389,10 @@ L<Dist::Zilla::Role::PluginBundle::Easy>
 L<Dist::Zilla::Plugin::Authority>
 
 L<Dist::Zilla::Plugin::MetaNoIndex>
+
+L<Dist::Zilla::Plugin::NextRelease>
+
+L<Dist::Zilla::Plugin::GatherDir>
 
 =head1 AUTHOR
 
