@@ -3,20 +3,20 @@ abstract: 'Dist::Zilla configuration the way CHIM does it'
 author:
   - 'Anton Gerasimov <chim@cpan.org>'
 build_requires:
-  File::Spec: 0
-  File::Temp: 0
-  IO::Handle: 0
-  IPC::Open3: 0
-  Test::More: 0
+  File::Spec: '0'
+  File::Temp: '0'
+  IO::Handle: '0'
+  IPC::Open3: '0'
+  Test::More: '0'
 configure_requires:
-  ExtUtils::MakeMaker: 6.30
-  File::ShareDir::Install: 0.03
+  ExtUtils::MakeMaker: '6.30'
+  File::ShareDir::Install: '0.06'
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.300039, CPAN::Meta::Converter version 2.132661'
+generated_by: 'Dist::Zilla version 5.019, CPAN::Meta::Converter version 2.141520'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
-  version: 1.4
+  version: '1.4'
 name: Dist-Zilla-PluginBundle-Author-CHIM
 no_index:
   directory:
@@ -32,32 +32,33 @@ no_index:
 provides:
   Dist::Zilla::MintingProfile::Author::CHIM:
     file: lib/Dist/Zilla/MintingProfile/Author/CHIM.pm
-    version: 0.04
+    version: '0.050001'
   Dist::Zilla::PluginBundle::Author::CHIM:
     file: lib/Dist/Zilla/PluginBundle/Author/CHIM.pm
-    version: 0.04
+    version: '0.050001'
 requires:
-  Dist::Zilla: 4.300030
-  Dist::Zilla::Plugin::Authority: 1.006
-  Dist::Zilla::Plugin::MetaProvides::Package: 1.14000001
-  Dist::Zilla::Plugin::OurPkgVersion: 0.004000
-  Dist::Zilla::Plugin::PodWeaver: 3.101641
-  Dist::Zilla::Plugin::ReadmeAnyFromPod: 0.120120
-  Dist::Zilla::Plugin::ReadmeFromPod: 0.18
-  Dist::Zilla::Plugin::Test::Compile: 2.001
-  Dist::Zilla::Plugin::Test::EOL: 0.08
-  Dist::Zilla::Plugin::Test::Kwalitee: 2.03
-  Dist::Zilla::Plugin::Test::NoTabs: 0.04
-  Dist::Zilla::Plugin::Test::Version: 0.002004
-  Moose: 2.0
-  Pod::Coverage::TrustPod: 0
-  Test::CPAN::Meta: 0
-  perl: 5.008009
-  strict: 0
-  warnings: 0
+  Dist::Zilla: '5.010'
+  Dist::Zilla::Plugin::Authority: '1.006'
+  Dist::Zilla::Plugin::MetaProvides::Package: '1.14000001'
+  Dist::Zilla::Plugin::OurPkgVersion: '0.004000'
+  Dist::Zilla::Plugin::PodWeaver: '3.101641'
+  Dist::Zilla::Plugin::ReadmeAnyFromPod: '0.133290'
+  Dist::Zilla::Plugin::ReadmeFromPod: '0.18'
+  Dist::Zilla::Plugin::Test::Compile: '2.001'
+  Dist::Zilla::Plugin::Test::EOL: '0.08'
+  Dist::Zilla::Plugin::Test::Kwalitee: '2.03'
+  Dist::Zilla::Plugin::Test::NoTabs: '0.04'
+  Dist::Zilla::Plugin::Test::Version: '0.002004'
+  Dist::Zilla::Plugin::TravisCI::StatusBadge: '0.004'
+  Moose: '2.0'
+  Pod::Coverage::TrustPod: '0'
+  Test::CPAN::Meta: '0'
+  perl: '5.008009'
+  strict: '0'
+  warnings: '0'
 resources:
   bugtracker: https://github.com/Wu-Wu/Dist-Zilla-PluginBundle-Author-CHIM/issues
   homepage: https://metacpan.org/release/Dist-Zilla-PluginBundle-Author-CHIM
   repository: git://github.com/Wu-Wu/Dist-Zilla-PluginBundle-Author-CHIM.git
-version: 0.04
+version: '0.050001'
 x_authority: cpan:CHIM

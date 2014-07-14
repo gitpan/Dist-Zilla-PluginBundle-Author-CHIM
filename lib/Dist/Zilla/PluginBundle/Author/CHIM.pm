@@ -2,13 +2,13 @@ package Dist::Zilla::PluginBundle::Author::CHIM;
 
 # ABSTRACT: Dist::Zilla configuration the way CHIM does it
 our $AUTHORITY = 'cpan:CHIM'; # AUTHORITY
-our $VERSION = '0.04'; # VERSION
+our $VERSION = '0.050001'; # VERSION
 
 use strict;
 use warnings;
 use Moose;
 
-use Dist::Zilla 4.3;
+use Dist::Zilla;
 with 'Dist::Zilla::Role::PluginBundle::Easy';
 
 has dist => (
@@ -53,8 +53,37 @@ has fake_release => (
     default  => sub { $_[0]->payload->{fake_release} || 0 },
 );
 
+
+sub mvp_multivalue_args {
+    return qw(
+        MetaNoIndex.directory
+        MetaNoIndex.package
+        MetaNoIndex.namespace
+        MetaNoIndex.file
+    );
+}
+
 sub configure {
     my ($self) = @_;
+
+    my $meta_no_index__options = {
+        directory => [(
+            @{ $self->payload->{'MetaNoIndex.directory'} || [] },
+            qw( t xt eg examples corpus )
+        )],
+        package => [(
+            @{ $self->payload->{'MetaNoIndex.package'} || [] },
+            qw( DB )
+        )],
+        namespace => [(
+            @{ $self->payload->{'MetaNoIndex.namespace'} || [] },
+            qw( t::lib )
+        )],
+        ( $self->payload->{'MetaNoIndex.file'}
+            ? ( file => $self->payload->{'MetaNoIndex.file'} )
+            : ( )
+        ),
+    };
 
     $self->add_plugins(
         [ 'GatherDir'               => {} ],
@@ -87,12 +116,14 @@ sub configure {
             },
         ],
 
-        [ 'MetaNoIndex'             => {
-                'directory' => [qw(t xt eg examples corpus)],
-                'package'   => [qw(DB)],
-                'namespace' => [qw(t::lib)],
+        [ 'TravisCI::StatusBadge'   => {
+                'user'      => $self->github_username,
+                'repo'      => $self->github_reponame,
+                'vector'    => 1,
             },
         ],
+
+        [ 'MetaNoIndex'             => $meta_no_index__options ],
 
         # set META resources
         [ 'MetaResources'           => {
@@ -149,13 +180,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Dist::Zilla::PluginBundle::Author::CHIM - Dist::Zilla configuration the way CHIM does it
 
 =head1 VERSION
 
-version 0.04
+version 0.050001
 
 =head1 DESCRIPTION
 
@@ -184,6 +217,11 @@ following dist.ini:
     type     = markdown
     filename = README.md
     location = root
+
+    [TravisCI::StatusBadge]
+    user = %{github_username}
+    repo = %{github_reponame}
+    vector = 1
 
     [MetaNoIndex]
     directory = t
@@ -232,6 +270,8 @@ following dist.ini:
     [ConfirmRelease]
     [UploadToCPAN]
 
+=for Pod::Coverage mvp_multivalue_args
+
 =head1 SYNOPSYS
 
     # in dist.ini
@@ -264,6 +304,44 @@ Indicates github.com's repository name. Default value is set to value of the I<d
 
 Replaces UploadToCPAN with FakeRelease so release won't actually uploaded. Default value is I<0>.
 
+=head2 MetaNoIndex.directory
+
+Exclude directories (recursively with files) from indexing by PAUSE/CPAN. Default values:
+C<t>, C<xt>, C<eg>, C<examples>, C<corpus>. Allowed multiple values, e.g.
+
+    MetaNoIndex.directory = foo/bar
+    MetaNoIndex.directory = quux/bar/foo
+
+See more at L<Dist::Zilla::Plugin::MetaNoIndex>.
+
+=head2 MetaNoIndex.namespace
+
+Exclude stuff under the namespace from indexing by PAUSE/CPAN. Default values: C<t::lib>. Allowed
+multiple values, e.g.
+
+    MetaNoIndex.namespace = Foo::Bar
+    MetaNoIndex.namespace = Quux::Foo
+
+See more at L<Dist::Zilla::Plugin::MetaNoIndex>.
+
+=head2 MetaNoIndex.package
+
+Exclude the package name from indexing by PAUSE/CPAN. Default values: C<DB>. Allowed
+multiple values, e.g.
+
+    MetaNoIndex.package = Foo::Bar
+
+See more at L<Dist::Zilla::Plugin::MetaNoIndex>.
+
+=head2 MetaNoIndex.file
+
+Exclude specific filename from indexing by PAUSE/CPAN. No defaults. Allowed
+multiple values, e.g.
+
+    MetaNoIndex.file = lib/Foo/Bar.pm
+
+See more at L<Dist::Zilla::Plugin::MetaNoIndex>.
+
 =head1 METHODS
 
 =head2 configure
@@ -277,6 +355,8 @@ L<Dist::Zilla>
 L<Dist::Zilla::Role::PluginBundle::Easy>
 
 L<Dist::Zilla::Plugin::Authority>
+
+L<Dist::Zilla::Plugin::MetaNoIndex>
 
 =head1 AUTHOR
 
