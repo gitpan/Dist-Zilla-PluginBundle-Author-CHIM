@@ -1,5 +1,10 @@
 Revision history for Perl extension Dist::Zilla::PluginBundle::Author::CHIM
 
+0.051001 Fri Jul 18 06:22:27 2014 +0000
+
+    [ FEATURES ]
+    - added plugins Git::NextVersion, Git::Tag, Git::Commit, Git::Check
+
 0.050002 Mon Jul 14 16:17:36 2014 +0000
 
     [ FEATURES ]

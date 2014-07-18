@@ -27,6 +27,7 @@ my %WriteMakefileArgs = (
   "PREREQ_PM" => {
     "Dist::Zilla" => "5.010",
     "Dist::Zilla::Plugin::Authority" => "1.006",
+    "Dist::Zilla::Plugin::Git" => "2.023",
     "Dist::Zilla::Plugin::MetaProvides::Package" => "1.14000001",
     "Dist::Zilla::Plugin::OurPkgVersion" => "0.004000",
     "Dist::Zilla::Plugin::PodWeaver" => "3.101641",
@@ -51,7 +52,7 @@ my %WriteMakefileArgs = (
     "IPC::Open3" => 0,
     "Test::More" => 0
   },
-  "VERSION" => "0.050002",
+  "VERSION" => "0.051001",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -61,6 +62,7 @@ my %WriteMakefileArgs = (
 my %FallbackPrereqs = (
   "Dist::Zilla" => "5.010",
   "Dist::Zilla::Plugin::Authority" => "1.006",
+  "Dist::Zilla::Plugin::Git" => "2.023",
   "Dist::Zilla::Plugin::MetaProvides::Package" => "1.14000001",
   "Dist::Zilla::Plugin::OurPkgVersion" => "0.004000",
   "Dist::Zilla::Plugin::PodWeaver" => "3.101641",

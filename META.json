@@ -50,6 +50,7 @@
          "requires" : {
             "Dist::Zilla" : "5.010",
             "Dist::Zilla::Plugin::Authority" : "1.006",
+            "Dist::Zilla::Plugin::Git" : "2.023",
             "Dist::Zilla::Plugin::MetaProvides::Package" : "1.14000001",
             "Dist::Zilla::Plugin::OurPkgVersion" : "0.004000",
             "Dist::Zilla::Plugin::PodWeaver" : "3.101641",
@@ -82,11 +83,11 @@
    "provides" : {
       "Dist::Zilla::MintingProfile::Author::CHIM" : {
          "file" : "lib/Dist/Zilla/MintingProfile/Author/CHIM.pm",
-         "version" : "0.050002"
+         "version" : "0.051001"
       },
       "Dist::Zilla::PluginBundle::Author::CHIM" : {
          "file" : "lib/Dist/Zilla/PluginBundle/Author/CHIM.pm",
-         "version" : "0.050002"
+         "version" : "0.051001"
       }
    },
    "release_status" : "stable",
@@ -101,7 +102,7 @@
          "web" : "https://github.com/Wu-Wu/Dist-Zilla-PluginBundle-Author-CHIM"
       }
    },
-   "version" : "0.050002",
+   "version" : "0.051001",
    "x_authority" : "cpan:CHIM"
 }
 

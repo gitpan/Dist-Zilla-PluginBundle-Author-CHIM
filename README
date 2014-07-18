@@ -3,11 +3,14 @@ NAME
     way CHIM does it
 
 VERSION
-    version 0.050002
+    version 0.051001
 
 DESCRIPTION
     This is a Dist::Zilla PluginBundle. It is roughly equivalent to the
     following dist.ini:
+
+        [Git::NextVersion]
+        version_regexp = ^([\d._]+)(-TRIAL)?$
 
         [GatherDir]
         [PruneCruft]
@@ -80,9 +83,21 @@ DESCRIPTION
         [MakeMaker]
         [Manifest]
 
+        [Git::Check]
+        allow_dirty = dist.ini
+        allow_dirty = Changes
+        untracked_files = die
+
         ;; release
         [ConfirmRelease]
         [UploadToCPAN]
+
+        [Git::Tag]
+        tag_format = %v%t
+        tag_message = release v%v%t
+
+        [Git::Commit]
+        commit_msg = bump Changes v%v%t [ci skip]
 
 SYNOPSYS
         # in dist.ini
@@ -166,6 +181,40 @@ OPTIONS
 
     See more at Dist::Zilla::Plugin::GatherDir.
 
+  GitNextVersion.version_regexp
+    Regular expression that matches a tag containing a version. Default
+    value is "^([\d._]+)(-TRIAL)?$".
+
+    See more at Dist::Zilla::Plugin::Git::NextVersion.
+
+  GitTag.tag_format
+    Format of the tag to apply. Default value is "%v%t".
+
+    See more at Dist::Zilla::Plugin::Git::Tag.
+
+  GitTag.tag_message
+    Format of the tag annotation. Default value is "release v%v%t".
+
+    See more at Dist::Zilla::Plugin::Git::Tag.
+
+  GitCommit.commit_msg
+    The commit message to use in commit after release. Default value is
+    "bump Changes v%v%t [ci skip]".
+
+    See more at Dist::Zilla::Plugin::Git::Commit.
+
+  GitCheck.allow_dirty
+    File that is allowed to have local modifications. This option may appear
+    multiple times. The default list is "dist.ini" and "Changes".
+
+    See more at Dist::Zilla::Plugin::Git::Check.
+
+  GitCheck.untracked_files
+    The commit message to use in commit after release. Default value is
+    "die".
+
+    See more at Dist::Zilla::Plugin::Git::Check.
+
 METHODS
   configure
     Bundle's configuration for role Dist::Zilla::Role::PluginBundle::Easy.
@@ -182,6 +231,8 @@ SEE ALSO
     Dist::Zilla::Plugin::NextRelease
 
     Dist::Zilla::Plugin::GatherDir
+
+    Dist::Zilla::Plugin::Git
 
 AUTHOR
     Anton Gerasimov <chim@cpan.org>

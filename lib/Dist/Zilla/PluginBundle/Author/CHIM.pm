@@ -2,7 +2,7 @@ package Dist::Zilla::PluginBundle::Author::CHIM;
 
 # ABSTRACT: Dist::Zilla configuration the way CHIM does it
 our $AUTHORITY = 'cpan:CHIM'; # AUTHORITY
-our $VERSION = '0.050002'; # VERSION
+our $VERSION = '0.051001'; # VERSION
 
 use strict;
 use warnings;
@@ -61,6 +61,7 @@ sub mvp_multivalue_args {
         MetaNoIndex.namespace
         MetaNoIndex.file
         GatherDir.exclude_match
+        GitCheck.allow_dirty
     );
 }
 
@@ -94,20 +95,27 @@ sub configure {
     };
 
     $self->add_plugins(
-        [ 'GatherDir'               => $gather_dir__options ],
-        [ 'PruneCruft'              => {} ],
+        # version provider
+        [ 'Git::NextVersion' => {
+                ':version'       => '2.023',
+                'version_regexp' => $self->payload->{'GitNextVersion.version_regexp'} ||
+                                    '^([\d._]+)(-TRIAL)?$'
+            }
+        ],
+        [ 'GatherDir' => $gather_dir__options ],
+        [ 'PruneCruft' => {} ],
 
         # modified files
-        [ 'OurPkgVersion'           => {} ],
-        [ 'PodWeaver'               => {} ],
-        [ 'NextRelease'             => {
+        [ 'OurPkgVersion' => {} ],
+        [ 'PodWeaver' => {} ],
+        [ 'NextRelease' => {
                 'time_zone' => $self->payload->{'NextRelease.time_zone'} ||
                                     'UTC',
                 'format'    => $self->payload->{'NextRelease.format'} ||
                                     '%-7v %{EEE MMM d HH:mm:ss yyyy ZZZ}d'
             }
         ],
-        [ 'Authority'               => {
+        [ 'Authority' => {
                 'authority'      => $self->authority,
                 'do_metadata'    => 1,
                 'locate_comment' => 1,
@@ -115,10 +123,10 @@ sub configure {
         ],
 
         # generated files
-        [ 'License'                 => {} ],
-        [ 'ReadmeFromPod'           => {} ],
-        [ 'ReadmeAnyFromPod'        => {} ],
-        [ 'ReadmeAnyFromPod'        =>
+        [ 'License' => {} ],
+        [ 'ReadmeFromPod' => {} ],
+        [ 'ReadmeAnyFromPod' => {} ],
+        [ 'ReadmeAnyFromPod' =>
             'ReadmeMdInRoot' => {
                 'type'     => 'markdown',
                 'filename' => 'README.md',
@@ -126,17 +134,18 @@ sub configure {
             },
         ],
 
-        [ 'TravisCI::StatusBadge'   => {
+        [ 'TravisCI::StatusBadge' => {
+                ':version'  => '0.004',
                 'user'      => $self->github_username,
                 'repo'      => $self->github_reponame,
                 'vector'    => 1,
             },
         ],
 
-        [ 'MetaNoIndex'             => $meta_no_index__options ],
+        [ 'MetaNoIndex' => $meta_no_index__options ],
 
         # set META resources
-        [ 'MetaResources'           => {
+        [ 'MetaResources' => {
                 'homepage'        => 'https://metacpan.org/release/' . $self->dist,
                 'repository.url'  => 'https://' . $self->github_repopath . '.git',
                 'repository.web'  => 'https://' . $self->github_repopath,
@@ -146,44 +155,60 @@ sub configure {
         ],
 
         # add 'provides' to META
-        [ 'MetaProvides::Package'   => {
-                'meta_noindex' => 1,
-            },
-        ],
+        [ 'MetaProvides::Package' => { 'meta_noindex' => 1 } ],
 
         # META files
-        [ 'MetaYAML'                => {} ],
-        [ 'MetaJSON'                => {} ],
+        [ 'MetaYAML' => {} ],
+        [ 'MetaJSON' => {} ],
 
         # t tests
-        [ 'Test::Compile'           => {
-                'fake_home' => 1
+        [ 'Test::Compile' => { 'fake_home' => 1 } ],
+
+        # xt tests
+        [ 'ExtraTests' => {} ],
+        [ 'MetaTests' => {} ],
+        [ 'PodSyntaxTests' => {} ],
+        [ 'PodCoverageTests' => {} ],
+        [ 'Test::Version' => {} ],
+        [ 'Test::Kwalitee' => {} ],
+        [ 'Test::EOL' => {} ],
+        [ 'Test::NoTabs' => {} ],
+
+        # build
+        [ 'MakeMaker' => {} ],
+        [ 'Manifest' => {} ],
+
+        [ 'Git::Check' => {
+                'allow_dirty' => $self->payload->{'GitCheck.allow_dirty'} ||
+                                    [qw( dist.ini Changes )],
+                'untracked_files' => $self->payload->{'GitCheck.untracked_files'} ||
+                                    'die',
             }
         ],
 
-        # xt tests
-        [ 'ExtraTests'              => {} ],
-        [ 'MetaTests'               => {} ],
-        [ 'PodSyntaxTests'          => {} ],
-        [ 'PodCoverageTests'        => {} ],
-        [ 'Test::Version'           => {} ],
-        [ 'Test::Kwalitee'          => {} ],
-        [ 'Test::EOL'               => {} ],
-        [ 'Test::NoTabs'            => {} ],
-
-        # build
-        [ 'MakeMaker'               => {} ],
-        [ 'Manifest'                => {} ],
-
         # release
-        [ 'ConfirmRelease'          => {} ],
+        [ 'ConfirmRelease' => {} ],
         [ ($self->fake_release ? 'FakeRelease' : 'UploadToCPAN') => {} ],
 
+        [ 'Git::Tag' => {
+                'tag_format' => $self->payload->{'GitTag.tag_format'} ||
+                                    '%v%t',
+                'tag_message' => $self->payload->{'GitTag.tag_message'} ||
+                                    'release v%v%t',
+            }
+        ],
+        [ 'Git::Commit' => {
+                'commit_msg' => $self->payload->{'GitCommit.commit_msg'} ||
+                                    'bump Changes v%v%t [ci skip]',
+            }
+        ],
     );
 }
 
 __PACKAGE__->meta->make_immutable;
+
 no Moose;
+
 1;
 
 __END__
@@ -198,12 +223,15 @@ Dist::Zilla::PluginBundle::Author::CHIM - Dist::Zilla configuration the way CHIM
 
 =head1 VERSION
 
-version 0.050002
+version 0.051001
 
 =head1 DESCRIPTION
 
 This is a L<Dist::Zilla> PluginBundle. It is roughly equivalent to the
 following dist.ini:
+
+    [Git::NextVersion]
+    version_regexp = ^([\d._]+)(-TRIAL)?$
 
     [GatherDir]
     [PruneCruft]
@@ -276,9 +304,21 @@ following dist.ini:
     [MakeMaker]
     [Manifest]
 
+    [Git::Check]
+    allow_dirty = dist.ini
+    allow_dirty = Changes
+    untracked_files = die
+
     ;; release
     [ConfirmRelease]
     [UploadToCPAN]
+
+    [Git::Tag]
+    tag_format = %v%t
+    tag_message = release v%v%t
+
+    [Git::Commit]
+    commit_msg = bump Changes v%v%t [ci skip]
 
 =for Pod::Coverage mvp_multivalue_args
 
@@ -374,6 +414,43 @@ multiple values, e.g.
 
 See more at L<Dist::Zilla::Plugin::GatherDir>.
 
+=head2 GitNextVersion.version_regexp
+
+Regular expression that matches a tag containing a version. Default value is C<^([\d._]+)(-TRIAL)?$>.
+
+See more at L<Dist::Zilla::Plugin::Git::NextVersion>.
+
+=head2 GitTag.tag_format
+
+Format of the tag to apply. Default value is C<%v%t>.
+
+See more at L<Dist::Zilla::Plugin::Git::Tag>.
+
+=head2 GitTag.tag_message
+
+Format of the tag annotation. Default value is C<release v%v%t>.
+
+See more at L<Dist::Zilla::Plugin::Git::Tag>.
+
+=head2 GitCommit.commit_msg
+
+The commit message to use in commit after release. Default value is C<bump Changes v%v%t [ci skip]>.
+
+See more at L<Dist::Zilla::Plugin::Git::Commit>.
+
+=head2 GitCheck.allow_dirty
+
+File that is allowed to have local modifications. This option may appear multiple times. The default
+list is C<dist.ini> and C<Changes>.
+
+See more at L<Dist::Zilla::Plugin::Git::Check>.
+
+=head2 GitCheck.untracked_files
+
+The commit message to use in commit after release. Default value is C<die>.
+
+See more at L<Dist::Zilla::Plugin::Git::Check>.
+
 =head1 METHODS
 
 =head2 configure
@@ -393,6 +470,8 @@ L<Dist::Zilla::Plugin::MetaNoIndex>
 L<Dist::Zilla::Plugin::NextRelease>
 
 L<Dist::Zilla::Plugin::GatherDir>
+
+L<Dist::Zilla::Plugin::Git>
 
 =head1 AUTHOR
 
