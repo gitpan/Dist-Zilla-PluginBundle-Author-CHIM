@@ -2,7 +2,7 @@ package Dist::Zilla::PluginBundle::Author::CHIM;
 
 # ABSTRACT: Dist::Zilla configuration the way CHIM does it
 our $AUTHORITY = 'cpan:CHIM'; # AUTHORITY
-our $VERSION = '0.051001'; # VERSION
+our $VERSION = '0.051002'; # VERSION
 
 use strict;
 use warnings;
@@ -190,16 +190,16 @@ sub configure {
         [ 'ConfirmRelease' => {} ],
         [ ($self->fake_release ? 'FakeRelease' : 'UploadToCPAN') => {} ],
 
+        [ 'Git::Commit' => {
+                'commit_msg' => $self->payload->{'GitCommit.commit_msg'} ||
+                                    'bump Changes v%v%t [ci skip]',
+            }
+        ],
         [ 'Git::Tag' => {
                 'tag_format' => $self->payload->{'GitTag.tag_format'} ||
                                     '%v%t',
                 'tag_message' => $self->payload->{'GitTag.tag_message'} ||
                                     'release v%v%t',
-            }
-        ],
-        [ 'Git::Commit' => {
-                'commit_msg' => $self->payload->{'GitCommit.commit_msg'} ||
-                                    'bump Changes v%v%t [ci skip]',
             }
         ],
     );
@@ -223,7 +223,7 @@ Dist::Zilla::PluginBundle::Author::CHIM - Dist::Zilla configuration the way CHIM
 
 =head1 VERSION
 
-version 0.051001
+version 0.051002
 
 =head1 DESCRIPTION
 
@@ -313,12 +313,12 @@ following dist.ini:
     [ConfirmRelease]
     [UploadToCPAN]
 
+    [Git::Commit]
+    commit_msg = bump Changes v%v%t [ci skip]
+
     [Git::Tag]
     tag_format = %v%t
     tag_message = release v%v%t
-
-    [Git::Commit]
-    commit_msg = bump Changes v%v%t [ci skip]
 
 =for Pod::Coverage mvp_multivalue_args
 

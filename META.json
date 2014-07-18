@@ -83,11 +83,11 @@
    "provides" : {
       "Dist::Zilla::MintingProfile::Author::CHIM" : {
          "file" : "lib/Dist/Zilla/MintingProfile/Author/CHIM.pm",
-         "version" : "0.051001"
+         "version" : "0.051002"
       },
       "Dist::Zilla::PluginBundle::Author::CHIM" : {
          "file" : "lib/Dist/Zilla/PluginBundle/Author/CHIM.pm",
-         "version" : "0.051001"
+         "version" : "0.051002"
       }
    },
    "release_status" : "stable",
@@ -102,7 +102,7 @@
          "web" : "https://github.com/Wu-Wu/Dist-Zilla-PluginBundle-Author-CHIM"
       }
    },
-   "version" : "0.051001",
+   "version" : "0.051002",
    "x_authority" : "cpan:CHIM"
 }
 

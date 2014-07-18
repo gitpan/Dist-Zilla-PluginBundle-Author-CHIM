@@ -3,7 +3,7 @@ NAME
     way CHIM does it
 
 VERSION
-    version 0.051001
+    version 0.051002
 
 DESCRIPTION
     This is a Dist::Zilla PluginBundle. It is roughly equivalent to the
@@ -92,12 +92,12 @@ DESCRIPTION
         [ConfirmRelease]
         [UploadToCPAN]
 
+        [Git::Commit]
+        commit_msg = bump Changes v%v%t [ci skip]
+
         [Git::Tag]
         tag_format = %v%t
         tag_message = release v%v%t
-
-        [Git::Commit]
-        commit_msg = bump Changes v%v%t [ci skip]
 
 SYNOPSYS
         # in dist.ini
