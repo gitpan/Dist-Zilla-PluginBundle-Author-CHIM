@@ -3,7 +3,7 @@ NAME
     way CHIM does it
 
 VERSION
-    version 0.051002
+    version 0.051003
 
 DESCRIPTION
     This is a Dist::Zilla PluginBundle. It is roughly equivalent to the
@@ -36,8 +36,8 @@ DESCRIPTION
         location = root
 
         [TravisCI::StatusBadge]
-        user = %{github_username}
-        repo = %{github_reponame}
+        user = %{github.user}
+        repo = %{github.repo} || %{dist}
         vector = 1
 
         [MetaNoIndex]
@@ -49,13 +49,12 @@ DESCRIPTION
         package   = DB
         namespace = t::lib
 
-        ;; set META resources
-        [MetaResources]
-        homepage        = https://metacpan.org/release/%{dist}
-        repository.url  = https://%{github_repopath}.git
-        repository.web  = https://%{github_repopath}
-        bugtracker.web  = https://%{github_repopath}/issues
-        repository.type = git
+        [GithubMeta]
+        homepage = https://metacpan.org/release/%{dist}
+        remote = origin
+        remote = github
+        remote = gh
+        issues = 1
 
         ;; add 'provides' to META
         [MetaProvides::Package]
@@ -104,27 +103,32 @@ SYNOPSYS
         [@Author::CHIM]
         dist            = My-Very-Cool-Module
         authority       = cpan:CHIM
-        github_username = Wu-Wu
-        github_reponame = perl5-My-Very-Cool-Module
+        github.user     = Wu-Wu
 
 OPTIONS
+  -remove
+    Removes a plugin. Might be used multiple times.
+
+        [@Author::CHIM]
+        -remove = PodCoverageTests
+        -remove = Test::Kwalitee
+
   dist
     The name of the distribution. Required.
 
   authority
     This one is used to set name the CPAN author of the distibution. It
-    should be something like "cpan:PAUSEID". Default value is *cpan:CHIM*.
+    should be something like "cpan:PAUSEID". Default value is "cpan:CHIM".
 
-  github_username
-    Indicates github.com's account name. Default value is *Wu-Wu*.
+  github.user
+    Indicates github.com's account name. Default value is "Wu-Wu". Used by
+    Dist::Zilla::Plugin::GithubMeta and
+    Dist::Zilla::Plugin::TravisCI::StatusBadge.
 
-  github_reponame
+  github.repo
     Indicates github.com's repository name. Default value is set to value of
-    the *dist*-attribute name.
-
-  fake_release
-    Replaces UploadToCPAN with FakeRelease so release won't actually
-    uploaded. Default value is *0*.
+    the "dist" option. Used by Dist::Zilla::Plugin::GithubMeta and
+    Dist::Zilla::Plugin::TravisCI::StatusBadge.
 
   NextRelease.time_zone
     Timezone for entries in Changes file. Default value is "UTC".
@@ -215,9 +219,44 @@ OPTIONS
 
     See more at Dist::Zilla::Plugin::Git::Check.
 
+  GithubMeta.homepage
+    Homepage of the distribution. Default value is
+    "https://metacpan.org/release/%{dist}".
+
+    See more at Dist::Zilla::Plugin::GithubMeta.
+
+  GithubMeta.remote
+    Remote names to inspect for github repository. Default values are
+    "origin", "github", "gh". You can provide multiple remote names
+
+        [@Author::CHIM]
+        GithubMeta.remote = foo
+        GithubMeta.remote = bar
+
+    See more at Dist::Zilla::Plugin::GithubMeta.
+
+  GithubMeta.issues
+    Inserts a bugtracker url to metadata. Default value is 1.
+
+    See more at Dist::Zilla::Plugin::GithubMeta.
+
 METHODS
   configure
     Bundle's configuration for role Dist::Zilla::Role::PluginBundle::Easy.
+
+FAKE RELEASE
+    Use option "fake_release" in bundle configuration:
+
+        [@Author::CHIM]
+        ...
+        fake_release = 1
+
+    or environment variable "FAKE":
+
+        FAKE=1 dzil release
+
+    The distribution won't actually uploaded to the CPAN if option or
+    variable will found.
 
 SEE ALSO
     Dist::Zilla
@@ -233,6 +272,10 @@ SEE ALSO
     Dist::Zilla::Plugin::GatherDir
 
     Dist::Zilla::Plugin::Git
+
+    Dist::Zilla::Plugin::TravisCI::StatusBadge
+
+    Dist::Zilla::Plugin::GithubMeta
 
 AUTHOR
     Anton Gerasimov <chim@cpan.org>
