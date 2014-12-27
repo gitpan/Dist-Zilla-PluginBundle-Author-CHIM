@@ -1,20 +1,23 @@
 NAME
+
     Dist::Zilla::PluginBundle::Author::CHIM - Dist::Zilla configuration the
     way CHIM does it
 
 VERSION
-    version 0.051003
+
+    version 0.052001
 
 DESCRIPTION
+
     This is a Dist::Zilla PluginBundle. It is roughly equivalent to the
     following dist.ini:
 
         [Git::NextVersion]
         version_regexp = ^([\d._]+)(-TRIAL)?$
-
+    
         [GatherDir]
         [PruneCruft]
-
+    
         ;; modified files
         [OurPkgVersion]
         [PodWeaver]
@@ -25,21 +28,23 @@ DESCRIPTION
         authority      = %{authority}
         do_metadata    = 1
         locate_comment = 1
-
+    
         ;; generated files
         [License]
-        [ReadmeFromPod]
-        [ReadmeAnyFromPod]
+    
+        [ReadmeAnyFromPod / ReadmeInBuild]
+        type     = text
+        filename = README
+        location = build
+    
         [ReadmeAnyFromPod / ReadmeMdInRoot]
         type     = markdown
         filename = README.md
         location = root
-
+    
         [TravisCI::StatusBadge]
-        user = %{github.user}
-        repo = %{github.repo} || %{dist}
         vector = 1
-
+    
         [MetaNoIndex]
         directory = t
         directory = xt
@@ -48,26 +53,26 @@ DESCRIPTION
         directory = corpus
         package   = DB
         namespace = t::lib
-
+    
         [GithubMeta]
         homepage = https://metacpan.org/release/%{dist}
         remote = origin
         remote = github
         remote = gh
         issues = 1
-
+    
         ;; add 'provides' to META
         [MetaProvides::Package]
         meta_noindex = 1
-
+    
         ;; META files
         [MetaYAML]
         [MetaJSON]
-
+    
         ;; t tests
         [Test::Compile]
         fake_home = 1
-
+    
         ;; xt tests
         [ExtraTests]
         [MetaTests]
@@ -77,28 +82,29 @@ DESCRIPTION
         [Test::Kwalitee]
         [Test::EOL]
         [Test::NoTabs]
-
+    
         ;; build
         [MakeMaker]
         [Manifest]
-
+    
         [Git::Check]
         allow_dirty = dist.ini
         allow_dirty = Changes
         untracked_files = die
-
+    
         ;; release
         [ConfirmRelease]
         [UploadToCPAN]
-
+    
         [Git::Commit]
         commit_msg = bump Changes v%v%t [ci skip]
-
+    
         [Git::Tag]
         tag_format = %v%t
         tag_message = release v%v%t
 
 SYNOPSYS
+
         # in dist.ini
         [@Author::CHIM]
         dist            = My-Very-Cool-Module
@@ -106,69 +112,81 @@ SYNOPSYS
         github.user     = Wu-Wu
 
 OPTIONS
-  -remove
+
+ -remove
+
     Removes a plugin. Might be used multiple times.
 
         [@Author::CHIM]
         -remove = PodCoverageTests
         -remove = Test::Kwalitee
 
-  dist
+ dist
+
     The name of the distribution. Required.
 
-  authority
-    This one is used to set name the CPAN author of the distibution. It
-    should be something like "cpan:PAUSEID". Default value is "cpan:CHIM".
+ authority
 
-  github.user
-    Indicates github.com's account name. Default value is "Wu-Wu". Used by
+    This one is used to set name the CPAN author of the distibution. It
+    should be something like cpan:PAUSEID. Default value is cpan:CHIM.
+
+ github.user
+
+    Indicates github.com's account name. Default value is Wu-Wu. Used by
     Dist::Zilla::Plugin::GithubMeta and
     Dist::Zilla::Plugin::TravisCI::StatusBadge.
 
-  github.repo
-    Indicates github.com's repository name. Default value is set to value of
-    the "dist" option. Used by Dist::Zilla::Plugin::GithubMeta and
+ github.repo
+
+    Indicates github.com's repository name. Default value is set to value
+    of the "dist" option. Used by Dist::Zilla::Plugin::GithubMeta and
     Dist::Zilla::Plugin::TravisCI::StatusBadge.
 
-  NextRelease.time_zone
-    Timezone for entries in Changes file. Default value is "UTC".
+ NextRelease.time_zone
+
+    Timezone for entries in Changes file. Default value is UTC.
 
     See more at Dist::Zilla::Plugin::NextRelease.
 
-  NextRelease.format
-    Format of entry in *Changes* file. Default value is "%-7v %{EEE MMM d
-    HH:mm:ss yyyy ZZZ}d".
+ NextRelease.format
+
+    Format of entry in Changes file. Default value is %-7v %{EEE MMM d
+    HH:mm:ss yyyy ZZZ}d.
 
     See more at Dist::Zilla::Plugin::NextRelease.
 
-  MetaNoIndex.directory
+ MetaNoIndex.directory
+
     Exclude directories (recursively with files) from indexing by
-    PAUSE/CPAN. Default values: "t", "xt", "eg", "examples", "corpus".
-    Allowed multiple values, e.g.
+    PAUSE/CPAN. Default values: t, xt, eg, examples, corpus. Allowed
+    multiple values, e.g.
 
         MetaNoIndex.directory = foo/bar
         MetaNoIndex.directory = quux/bar/foo
 
     See more at Dist::Zilla::Plugin::MetaNoIndex.
 
-  MetaNoIndex.namespace
+ MetaNoIndex.namespace
+
     Exclude stuff under the namespace from indexing by PAUSE/CPAN. Default
-    values: "t::lib". Allowed multiple values, e.g.
+    values: t::lib. Allowed multiple values, e.g.
 
         MetaNoIndex.namespace = Foo::Bar
         MetaNoIndex.namespace = Quux::Foo
 
     See more at Dist::Zilla::Plugin::MetaNoIndex.
 
-  MetaNoIndex.package
+ MetaNoIndex.package
+
     Exclude the package name from indexing by PAUSE/CPAN. Default values:
-    "DB". Allowed multiple values, e.g.
+    DB. Allowed multiple values, e.g.
 
         MetaNoIndex.package = Foo::Bar
 
     See more at Dist::Zilla::Plugin::MetaNoIndex.
 
-  MetaNoIndex.file
+ MetaNoIndex.file
+
     Exclude specific filename from indexing by PAUSE/CPAN. No defaults.
     Allowed multiple values, e.g.
 
@@ -176,7 +194,8 @@ OPTIONS
 
     See more at Dist::Zilla::Plugin::MetaNoIndex.
 
-  GatherDir.exclude_match
+ GatherDir.exclude_match
+
     Regular expression pattern which causes not to gather matched files. No
     defaults. Allowed multiple values, e.g.
 
@@ -185,49 +204,57 @@ OPTIONS
 
     See more at Dist::Zilla::Plugin::GatherDir.
 
-  GitNextVersion.version_regexp
+ GitNextVersion.version_regexp
+
     Regular expression that matches a tag containing a version. Default
-    value is "^([\d._]+)(-TRIAL)?$".
+    value is ^([\d._]+)(-TRIAL)?$.
 
     See more at Dist::Zilla::Plugin::Git::NextVersion.
 
-  GitTag.tag_format
-    Format of the tag to apply. Default value is "%v%t".
+ GitTag.tag_format
+
+    Format of the tag to apply. Default value is %v%t.
 
     See more at Dist::Zilla::Plugin::Git::Tag.
 
-  GitTag.tag_message
-    Format of the tag annotation. Default value is "release v%v%t".
+ GitTag.tag_message
+
+    Format of the tag annotation. Default value is release v%v%t.
 
     See more at Dist::Zilla::Plugin::Git::Tag.
 
-  GitCommit.commit_msg
+ GitCommit.commit_msg
+
     The commit message to use in commit after release. Default value is
-    "bump Changes v%v%t [ci skip]".
+    bump Changes v%v%t [ci skip].
 
     See more at Dist::Zilla::Plugin::Git::Commit.
 
-  GitCheck.allow_dirty
-    File that is allowed to have local modifications. This option may appear
-    multiple times. The default list is "dist.ini" and "Changes".
+ GitCheck.allow_dirty
+
+    File that is allowed to have local modifications. This option may
+    appear multiple times. The default list is dist.ini and Changes.
 
     See more at Dist::Zilla::Plugin::Git::Check.
 
-  GitCheck.untracked_files
+ GitCheck.untracked_files
+
     The commit message to use in commit after release. Default value is
-    "die".
+    die.
 
     See more at Dist::Zilla::Plugin::Git::Check.
 
-  GithubMeta.homepage
+ GithubMeta.homepage
+
     Homepage of the distribution. Default value is
-    "https://metacpan.org/release/%{dist}".
+    https://metacpan.org/release/%{dist}.
 
     See more at Dist::Zilla::Plugin::GithubMeta.
 
-  GithubMeta.remote
+ GithubMeta.remote
+
     Remote names to inspect for github repository. Default values are
-    "origin", "github", "gh". You can provide multiple remote names
+    origin, github, gh. You can provide multiple remote names
 
         [@Author::CHIM]
         GithubMeta.remote = foo
@@ -235,23 +262,27 @@ OPTIONS
 
     See more at Dist::Zilla::Plugin::GithubMeta.
 
-  GithubMeta.issues
+ GithubMeta.issues
+
     Inserts a bugtracker url to metadata. Default value is 1.
 
     See more at Dist::Zilla::Plugin::GithubMeta.
 
 METHODS
-  configure
+
+ configure
+
     Bundle's configuration for role Dist::Zilla::Role::PluginBundle::Easy.
 
 FAKE RELEASE
-    Use option "fake_release" in bundle configuration:
+
+    Use option fake_release in bundle configuration:
 
         [@Author::CHIM]
         ...
         fake_release = 1
 
-    or environment variable "FAKE":
+    or environment variable FAKE:
 
         FAKE=1 dzil release
 
@@ -259,6 +290,7 @@ FAKE RELEASE
     variable will found.
 
 SEE ALSO
+
     Dist::Zilla
 
     Dist::Zilla::Role::PluginBundle::Easy
@@ -278,9 +310,11 @@ SEE ALSO
     Dist::Zilla::Plugin::GithubMeta
 
 AUTHOR
+
     Anton Gerasimov <chim@cpan.org>
 
 COPYRIGHT AND LICENSE
+
     This software is copyright (c) 2013 by Anton Gerasimov.
 
     This is free software; you can redistribute it and/or modify it under

@@ -6,14 +6,11 @@ META.json
 META.yml
 Makefile.PL
 README
-dist.ini
-eg/dist.ini
 lib/Dist/Zilla/MintingProfile/Author/CHIM.pm
 lib/Dist/Zilla/PluginBundle/Author/CHIM.pm
 profiles/default/package.template
 profiles/default/profile.ini
 profiles/default/skel/Changes
-profiles/default/skel/dist.ini
 t/00-compile.t
 t/author-test-eol.t
 t/release-distmeta.t

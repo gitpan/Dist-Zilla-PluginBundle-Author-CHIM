@@ -2,7 +2,7 @@ package Dist::Zilla::PluginBundle::Author::CHIM;
 
 # ABSTRACT: Dist::Zilla configuration the way CHIM does it
 our $AUTHORITY = 'cpan:CHIM'; # AUTHORITY
-our $VERSION = '0.051003'; # VERSION
+our $VERSION = '0.052001'; # VERSION
 
 use strict;
 use warnings;
@@ -108,8 +108,17 @@ sub configure {
 
         # generated files
         [ 'License' => {} ],
-        [ 'ReadmeFromPod' => {} ],
-        [ 'ReadmeAnyFromPod' => {} ],
+
+        # README
+        [ 'ReadmeAnyFromPod' =>
+            'ReadmeInBuild' => {
+                'type'     => 'text',
+                'filename' => 'README',
+                'location' => 'build',
+            },
+        ],
+
+        # README.md
         [ 'ReadmeAnyFromPod' =>
             'ReadmeMdInRoot' => {
                 'type'     => 'markdown',
@@ -119,9 +128,7 @@ sub configure {
         ],
 
         [ 'TravisCI::StatusBadge' => {
-                ':version'  => '0.004',
-                'user'      => $self->payload->{'github.user'} || 'Wu-Wu',
-                'repo'      => $self->payload->{'github.repo'} || $self->dist,
+                ':version'  => '0.005',
                 'vector'    => 1,
             },
         ],
@@ -199,7 +206,7 @@ Dist::Zilla::PluginBundle::Author::CHIM - Dist::Zilla configuration the way CHIM
 
 =head1 VERSION
 
-version 0.051003
+version 0.052001
 
 =head1 DESCRIPTION
 
@@ -225,16 +232,18 @@ following dist.ini:
 
     ;; generated files
     [License]
-    [ReadmeFromPod]
-    [ReadmeAnyFromPod]
+
+    [ReadmeAnyFromPod / ReadmeInBuild]
+    type     = text
+    filename = README
+    location = build
+
     [ReadmeAnyFromPod / ReadmeMdInRoot]
     type     = markdown
     filename = README.md
     location = root
 
     [TravisCI::StatusBadge]
-    user = %{github.user}
-    repo = %{github.repo} || %{dist}
     vector = 1
 
     [MetaNoIndex]
