@@ -2,7 +2,7 @@ package Dist::Zilla::PluginBundle::Author::CHIM;
 
 # ABSTRACT: Dist::Zilla configuration the way CHIM does it
 our $AUTHORITY = 'cpan:CHIM'; # AUTHORITY
-our $VERSION = '0.052002'; # VERSION
+our $VERSION = '0.052003'; # VERSION
 
 use strict;
 use warnings;
@@ -71,10 +71,10 @@ sub configure {
         'remote'    => $self->payload->{'GithubMeta.remote'} ||
                             [qw( origin github gh )],
         'issues'    => $self->payload->{'GithubMeta.issues'} || 1,
-        ( $self->payload->{'user'} ?
+        ( $self->payload->{'github.user'} ?
             ( 'user' => $self->payload->{'github.user'} ) : ( )
         ),
-        ( $self->payload->{'repo'} ?
+        ( $self->payload->{'github.repo'} ?
             ( 'repo' => $self->payload->{'github.repo'} ) : ( )
         ),
     };
@@ -153,7 +153,6 @@ sub configure {
         [ 'Test::Compile' => { 'fake_home' => 1 } ],
 
         # xt tests
-        [ 'ExtraTests' => {} ],
         [ 'MetaTests' => {} ],
         [ 'PodSyntaxTests' => {} ],
         [ 'PodCoverageTests' => {} ],
@@ -165,6 +164,9 @@ sub configure {
         # build
         [ 'MakeMaker' => {} ],
         [ 'Manifest' => {} ],
+
+        # run tests at xt/ on dzil test
+        [ 'RunExtraTests' => { default_jobs => 7 } ],
 
         [ 'Git::Check' => {
                 'allow_dirty' => $self->payload->{'GitCheck.allow_dirty'} ||
@@ -211,7 +213,7 @@ Dist::Zilla::PluginBundle::Author::CHIM - Dist::Zilla configuration the way CHIM
 
 =head1 VERSION
 
-version 0.052002
+version 0.052003
 
 =head1 DESCRIPTION
 
@@ -283,7 +285,6 @@ following dist.ini:
     fake_home = 1
 
     ;; xt tests
-    [ExtraTests]
     [MetaTests]
     [PodSyntaxTests]
     [PodCoverageTests]
@@ -295,6 +296,10 @@ following dist.ini:
     ;; build
     [MakeMaker]
     [Manifest]
+
+    ;; run tests at xt/ on dzil test
+    [RunExtraTests]
+    default_jobs = 7
 
     [Git::Check]
     allow_dirty = dist.ini

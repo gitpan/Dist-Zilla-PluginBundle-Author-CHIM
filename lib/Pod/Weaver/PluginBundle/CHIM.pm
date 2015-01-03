@@ -5,7 +5,7 @@ package Pod::Weaver::PluginBundle::CHIM;
 use strict;
 use warnings;
 
-our $VERSION = '0.052002'; # VERSION
+our $VERSION = '0.052003'; # VERSION
 our $AUTHORITY = 'cpan:CHIM'; # AUTHORITY
 
 use namespace::autoclean;
@@ -66,7 +66,7 @@ Pod::Weaver::PluginBundle::CHIM - CHIM's default Pod::Weaver configuration
 
 =head1 VERSION
 
-version 0.052002
+version 0.052003
 
 =head1 SYNOPSIS
 

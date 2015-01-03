@@ -7,18 +7,13 @@ use 5.008009;
 
 use ExtUtils::MakeMaker;
 
-use File::ShareDir::Install;
-$File::ShareDir::Install::INCLUDE_DOTFILES = 1;
-$File::ShareDir::Install::INCLUDE_DOTDIRS = 1;
-install_share module => "Dist::Zilla::MintingProfile::Author::CHIM", "profiles";
 
 
 my %WriteMakefileArgs = (
   "ABSTRACT" => "Dist::Zilla configuration the way CHIM does it",
   "AUTHOR" => "Anton Gerasimov <chim\@cpan.org>",
   "CONFIGURE_REQUIRES" => {
-    "ExtUtils::MakeMaker" => 0,
-    "File::ShareDir::Install" => "0.06"
+    "ExtUtils::MakeMaker" => 0
   },
   "DISTNAME" => "Dist-Zilla-PluginBundle-Author-CHIM",
   "EXE_FILES" => [],
@@ -28,6 +23,8 @@ my %WriteMakefileArgs = (
   "PREREQ_PM" => {
     "Dist::Zilla" => "5.010",
     "Dist::Zilla::Plugin::Authority" => "1.006",
+    "Dist::Zilla::Plugin::Bootstrap::lib" => "1.001000",
+    "Dist::Zilla::Plugin::CheckExtraTests" => "0.025",
     "Dist::Zilla::Plugin::Git" => "2.023",
     "Dist::Zilla::Plugin::GithubMeta" => "0.46",
     "Dist::Zilla::Plugin::MetaProvides::Package" => "1.14000001",
@@ -55,7 +52,7 @@ my %WriteMakefileArgs = (
     "IPC::Open3" => 0,
     "Test::More" => 0
   },
-  "VERSION" => "0.052002",
+  "VERSION" => "0.052003",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -65,6 +62,8 @@ my %WriteMakefileArgs = (
 my %FallbackPrereqs = (
   "Dist::Zilla" => "5.010",
   "Dist::Zilla::Plugin::Authority" => "1.006",
+  "Dist::Zilla::Plugin::Bootstrap::lib" => "1.001000",
+  "Dist::Zilla::Plugin::CheckExtraTests" => "0.025",
   "Dist::Zilla::Plugin::Git" => "2.023",
   "Dist::Zilla::Plugin::GithubMeta" => "0.46",
   "Dist::Zilla::Plugin::MetaProvides::Package" => "1.14000001",
@@ -79,7 +78,6 @@ my %FallbackPrereqs = (
   "Dist::Zilla::Plugin::TravisCI::StatusBadge" => "0.005",
   "Dist::Zilla::Role::PluginBundle::PluginRemover" => "0.102",
   "ExtUtils::MakeMaker" => 0,
-  "File::ShareDir::Install" => "0.06",
   "File::Spec" => 0,
   "File::Temp" => 0,
   "IO::Handle" => 0,
@@ -105,10 +103,5 @@ delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
 
 WriteMakefile(%WriteMakefileArgs);
 
-{
-package
-MY;
-use File::ShareDir::Install qw(postamble);
-}
 
 
