@@ -5,7 +5,7 @@ NAME
 
 VERSION
 
-    version 0.052001
+    version 0.052002
 
 DESCRIPTION
 
@@ -20,7 +20,10 @@ DESCRIPTION
     
         ;; modified files
         [OurPkgVersion]
+    
         [PodWeaver]
+        config_plugin = @CHIM
+    
         [NextRelease]
         time_zone = UTC
         format    = %-7v %{EEE MMM d HH:mm:ss yyyy ZZZ}d
@@ -268,6 +271,14 @@ OPTIONS
 
     See more at Dist::Zilla::Plugin::GithubMeta.
 
+ PodWeaver.config_plugin
+
+    Configuration of Pod::Weaver. This option may appear multiple times.
+    Default value is @CHIM.
+
+    See more at Dist::Zilla::Plugin::PodWeaver and
+    Pod::Weaver::PluginBundle::CHIM.
+
 METHODS
 
  configure
@@ -291,23 +302,34 @@ FAKE RELEASE
 
 SEE ALSO
 
-    Dist::Zilla
+    Please see those modules/websites for more information related to this
+    module.
 
-    Dist::Zilla::Role::PluginBundle::Easy
+      * Dist::Zilla
 
-    Dist::Zilla::Plugin::Authority
+      * Dist::Zilla::Role::PluginBundle::Easy
 
-    Dist::Zilla::Plugin::MetaNoIndex
+      * Dist::Zilla::Plugin::Authority
 
-    Dist::Zilla::Plugin::NextRelease
+      * Dist::Zilla::Plugin::MetaNoIndex
 
-    Dist::Zilla::Plugin::GatherDir
+      * Dist::Zilla::Plugin::NextRelease
 
-    Dist::Zilla::Plugin::Git
+      * Dist::Zilla::Plugin::GatherDir
 
-    Dist::Zilla::Plugin::TravisCI::StatusBadge
+      * Dist::Zilla::Plugin::Git
 
-    Dist::Zilla::Plugin::GithubMeta
+      * Dist::Zilla::Plugin::TravisCI::StatusBadge
+
+      * Dist::Zilla::Plugin::GithubMeta
+
+BUGS
+
+    Please report any bugs or feature requests on the bugtracker website
+    https://github.com/Wu-Wu/Dist-Zilla-PluginBundle-Author-CHIM/issues
+
+    When submitting a bug or request, please include a test-file or a patch
+    to an existing test-file that illustrates the bug or desired feature.
 
 AUTHOR
 

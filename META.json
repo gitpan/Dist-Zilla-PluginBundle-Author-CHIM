@@ -4,13 +4,13 @@
       "Anton Gerasimov <chim@cpan.org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 5.019, CPAN::Meta::Converter version 2.141520",
+   "generated_by" : "Dist::Zilla version 5.029, CPAN::Meta::Converter version 2.143240",
    "license" : [
       "perl_5"
    ],
    "meta-spec" : {
       "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
-      "version" : "2"
+      "version" : 2
    },
    "name" : "Dist-Zilla-PluginBundle-Author-CHIM",
    "no_index" : {
@@ -31,7 +31,7 @@
    "prereqs" : {
       "configure" : {
          "requires" : {
-            "ExtUtils::MakeMaker" : "6.30",
+            "ExtUtils::MakeMaker" : "0",
             "File::ShareDir::Install" : "0.06"
          }
       },
@@ -65,6 +65,7 @@
             "Dist::Zilla::Role::PluginBundle::PluginRemover" : "0.102",
             "Moose" : "2.0",
             "Pod::Coverage::TrustPod" : "0",
+            "Pod::Weaver::Section::SeeAlso" : "1.003",
             "Test::CPAN::Meta" : "0",
             "perl" : "5.008009",
             "strict" : "0",
@@ -84,11 +85,15 @@
    "provides" : {
       "Dist::Zilla::MintingProfile::Author::CHIM" : {
          "file" : "lib/Dist/Zilla/MintingProfile/Author/CHIM.pm",
-         "version" : "0.052001"
+         "version" : "0.052002"
       },
       "Dist::Zilla::PluginBundle::Author::CHIM" : {
          "file" : "lib/Dist/Zilla/PluginBundle/Author/CHIM.pm",
-         "version" : "0.052001"
+         "version" : "0.052002"
+      },
+      "Pod::Weaver::PluginBundle::CHIM" : {
+         "file" : "lib/Pod/Weaver/PluginBundle/CHIM.pm",
+         "version" : "0.052002"
       }
    },
    "release_status" : "stable",
@@ -103,7 +108,7 @@
          "web" : "https://github.com/Wu-Wu/Dist-Zilla-PluginBundle-Author-CHIM"
       }
    },
-   "version" : "0.052001",
+   "version" : "0.052002",
    "x_authority" : "cpan:CHIM"
 }
 

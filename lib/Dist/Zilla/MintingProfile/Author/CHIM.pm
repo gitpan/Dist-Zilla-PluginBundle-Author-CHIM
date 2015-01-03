@@ -5,7 +5,7 @@ package Dist::Zilla::MintingProfile::Author::CHIM;
 use strict;
 use warnings;
 
-our $VERSION = '0.052001'; # VERSION
+our $VERSION = '0.052002'; # VERSION
 our $AUTHORITY = 'cpan:CHIM'; # AUTHORITY
 
 use Moose;
@@ -28,7 +28,7 @@ Dist::Zilla::MintingProfile::Author::CHIM - Make new modules like CHIM does
 
 =head1 VERSION
 
-version 0.052001
+version 0.052002
 
 =head1 DESCRIPTION
 
@@ -40,9 +40,32 @@ This installs a Dist::Zilla minting profile used by CHIM.
 
 =head1 SEE ALSO
 
+Please see those modules/websites for more information related to this module.
+
+=over 4
+
+=item *
+
+L<Dist::Zilla::PluginBundle::Author::CHIM|Dist::Zilla::PluginBundle::Author::CHIM>
+
+=item *
+
 L<Dist::Zilla>
 
+=item *
+
 L<Dist::Zilla::PluginBundle::Author::CHIM>
+
+=back
+
+=head1 BUGS
+
+Please report any bugs or feature requests on the bugtracker website
+https://github.com/Wu-Wu/Dist-Zilla-PluginBundle-Author-CHIM/issues
+
+When submitting a bug or request, please include a test-file or a
+patch to an existing test-file that illustrates the bug or desired
+feature.
 
 =head1 AUTHOR
 

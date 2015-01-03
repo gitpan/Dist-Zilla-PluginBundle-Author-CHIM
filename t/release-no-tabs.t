@@ -17,6 +17,7 @@ use Test::NoTabs;
 my @files = (
     'lib/Dist/Zilla/MintingProfile/Author/CHIM.pm',
     'lib/Dist/Zilla/PluginBundle/Author/CHIM.pm',
+    'lib/Pod/Weaver/PluginBundle/CHIM.pm',
     't/00-compile.t',
     't/author-test-eol.t',
     't/release-distmeta.t',

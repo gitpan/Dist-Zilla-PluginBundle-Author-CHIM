@@ -2,7 +2,7 @@ package Dist::Zilla::PluginBundle::Author::CHIM;
 
 # ABSTRACT: Dist::Zilla configuration the way CHIM does it
 our $AUTHORITY = 'cpan:CHIM'; # AUTHORITY
-our $VERSION = '0.052001'; # VERSION
+our $VERSION = '0.052002'; # VERSION
 
 use strict;
 use warnings;
@@ -32,6 +32,7 @@ sub mvp_multivalue_args {
         GatherDir.exclude_match
         GitCheck.allow_dirty
         GithubMeta.remote
+        PodWeaver.config_plugin
     );
 }
 
@@ -91,7 +92,11 @@ sub configure {
 
         # modified files
         [ 'OurPkgVersion' => {} ],
-        [ 'PodWeaver' => {} ],
+
+        [ 'PodWeaver' => {
+                'config_plugin' => $self->payload->{'PodWeaver.config_plugin'} || '@CHIM',
+            }
+        ],
         [ 'NextRelease' => {
                 'time_zone' => $self->payload->{'NextRelease.time_zone'} ||
                                     'UTC',
@@ -206,7 +211,7 @@ Dist::Zilla::PluginBundle::Author::CHIM - Dist::Zilla configuration the way CHIM
 
 =head1 VERSION
 
-version 0.052001
+version 0.052002
 
 =head1 DESCRIPTION
 
@@ -221,7 +226,10 @@ following dist.ini:
 
     ;; modified files
     [OurPkgVersion]
+
     [PodWeaver]
+    config_plugin = @CHIM
+
     [NextRelease]
     time_zone = UTC
     format    = %-7v %{EEE MMM d HH:mm:ss yyyy ZZZ}d
@@ -463,6 +471,12 @@ Inserts a bugtracker url to metadata. Default value is C<1>.
 
 See more at L<Dist::Zilla::Plugin::GithubMeta>.
 
+=head2 PodWeaver.config_plugin
+
+Configuration of L<Pod::Weaver>. This option may appear multiple times. Default value is C<@CHIM>.
+
+See more at L<Dist::Zilla::Plugin::PodWeaver> and L<Pod::Weaver::PluginBundle::CHIM>.
+
 =head1 METHODS
 
 =head2 configure
@@ -485,23 +499,56 @@ The distribution won't actually uploaded to the CPAN if option or variable will 
 
 =head1 SEE ALSO
 
-L<Dist::Zilla>
+Please see those modules/websites for more information related to this module.
 
-L<Dist::Zilla::Role::PluginBundle::Easy>
+=over 4
 
-L<Dist::Zilla::Plugin::Authority>
+=item *
 
-L<Dist::Zilla::Plugin::MetaNoIndex>
+L<Dist::Zilla|Dist::Zilla>
 
-L<Dist::Zilla::Plugin::NextRelease>
+=item *
 
-L<Dist::Zilla::Plugin::GatherDir>
+L<Dist::Zilla::Role::PluginBundle::Easy|Dist::Zilla::Role::PluginBundle::Easy>
 
-L<Dist::Zilla::Plugin::Git>
+=item *
 
-L<Dist::Zilla::Plugin::TravisCI::StatusBadge>
+L<Dist::Zilla::Plugin::Authority|Dist::Zilla::Plugin::Authority>
 
-L<Dist::Zilla::Plugin::GithubMeta>
+=item *
+
+L<Dist::Zilla::Plugin::MetaNoIndex|Dist::Zilla::Plugin::MetaNoIndex>
+
+=item *
+
+L<Dist::Zilla::Plugin::NextRelease|Dist::Zilla::Plugin::NextRelease>
+
+=item *
+
+L<Dist::Zilla::Plugin::GatherDir|Dist::Zilla::Plugin::GatherDir>
+
+=item *
+
+L<Dist::Zilla::Plugin::Git|Dist::Zilla::Plugin::Git>
+
+=item *
+
+L<Dist::Zilla::Plugin::TravisCI::StatusBadge|Dist::Zilla::Plugin::TravisCI::StatusBadge>
+
+=item *
+
+L<Dist::Zilla::Plugin::GithubMeta|Dist::Zilla::Plugin::GithubMeta>
+
+=back
+
+=head1 BUGS
+
+Please report any bugs or feature requests on the bugtracker website
+https://github.com/Wu-Wu/Dist-Zilla-PluginBundle-Author-CHIM/issues
+
+When submitting a bug or request, please include a test-file or a
+patch to an existing test-file that illustrates the bug or desired
+feature.
 
 =head1 AUTHOR
 
