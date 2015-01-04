@@ -16,6 +16,7 @@ my $root_config = {
     license             => 'Perl_5',
     copyright_holder    => 'John Doe',
     copyright_year      => '2014',
+    version             => '0.001',
 };
 
 my $tzil = Builder->from_config(
@@ -27,9 +28,10 @@ my $tzil = Builder->from_config(
             'source/dist.ini' => dist_ini(
                 $root_config,
                 [ '@Author::CHIM' => {
-                        'dist' => 'FooBarBaz',
-                        'github.user' => 'john',
-                        'github.repo' => 'FooBarBaz-pm',
+                        'dist'          => 'FooBarBaz',
+                        'no_git'        => '1',
+                        'github.user'   => 'john',
+                        'github.repo'   => 'FooBarBaz-pm',
                     }
                 ]
             ),

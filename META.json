@@ -86,11 +86,11 @@
    "provides" : {
       "Dist::Zilla::PluginBundle::Author::CHIM" : {
          "file" : "lib/Dist/Zilla/PluginBundle/Author/CHIM.pm",
-         "version" : "0.052003"
+         "version" : "0.052004"
       },
       "Pod::Weaver::PluginBundle::CHIM" : {
          "file" : "lib/Pod/Weaver/PluginBundle/CHIM.pm",
-         "version" : "0.052003"
+         "version" : "0.052004"
       }
    },
    "release_status" : "stable",
@@ -105,7 +105,7 @@
          "web" : "https://github.com/Wu-Wu/Dist-Zilla-PluginBundle-Author-CHIM"
       }
    },
-   "version" : "0.052003",
+   "version" : "0.052004",
    "x_authority" : "cpan:CHIM"
 }
 

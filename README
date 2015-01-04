@@ -5,7 +5,7 @@ NAME
 
 VERSION
 
-    version 0.052003
+    version 0.052004
 
 DESCRIPTION
 
@@ -130,6 +130,11 @@ OPTIONS
  dist
 
     The name of the distribution. Required.
+
+ no_git
+
+    Boolean. When true - all git-related plugins will be skipped. Default
+    value is false.
 
  authority
 
