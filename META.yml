@@ -31,10 +31,10 @@ no_index:
 provides:
   Dist::Zilla::PluginBundle::Author::CHIM:
     file: lib/Dist/Zilla/PluginBundle/Author/CHIM.pm
-    version: '0.052004'
+    version: '0.052005'
   Pod::Weaver::PluginBundle::CHIM:
     file: lib/Pod/Weaver/PluginBundle/CHIM.pm
-    version: '0.052004'
+    version: '0.052005'
 requires:
   Dist::Zilla: '5.010'
   Dist::Zilla::Plugin::Authority: '1.006'
@@ -54,9 +54,12 @@ requires:
   Dist::Zilla::Plugin::TravisCI::StatusBadge: '0.005'
   Dist::Zilla::Role::PluginBundle::PluginRemover: '0.102'
   Moose: '2.0'
+  Path::Tiny: '0'
   Pod::Coverage::TrustPod: '0'
+  Pod::Weaver: '4'
   Pod::Weaver::Section::SeeAlso: '1.003'
   Test::CPAN::Meta: '0'
+  namespace::autoclean: '0'
   perl: '5.008009'
   strict: '0'
   warnings: '0'
@@ -64,5 +67,5 @@ resources:
   bugtracker: https://github.com/Wu-Wu/Dist-Zilla-PluginBundle-Author-CHIM/issues
   homepage: https://metacpan.org/release/Dist-Zilla-PluginBundle-Author-CHIM
   repository: https://github.com/Wu-Wu/Dist-Zilla-PluginBundle-Author-CHIM.git
-version: '0.052004'
+version: '0.052005'
 x_authority: cpan:CHIM

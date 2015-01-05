@@ -2,7 +2,7 @@ package Dist::Zilla::PluginBundle::Author::CHIM;
 
 # ABSTRACT: Dist::Zilla configuration the way CHIM does it
 our $AUTHORITY = 'cpan:CHIM'; # AUTHORITY
-our $VERSION = '0.052004'; # VERSION
+our $VERSION = '0.052005'; # VERSION
 
 use strict;
 use warnings;
@@ -234,7 +234,7 @@ Dist::Zilla::PluginBundle::Author::CHIM - Dist::Zilla configuration the way CHIM
 
 =head1 VERSION
 
-version 0.052004
+version 0.052005
 
 =head1 DESCRIPTION
 

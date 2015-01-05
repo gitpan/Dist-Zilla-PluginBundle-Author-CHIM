@@ -1,5 +1,10 @@
 Revision history for Perl extension Dist::Zilla::PluginBundle::Author::CHIM
 
+0.052005 Mon Jan 5 17:28:00 2015 +0000
+
+    [ FIXES ]
+    - missed prerequisites
+
 0.052004 Sun Jan 4 13:21:26 2015 +0000
 
     [ FEATURES ]

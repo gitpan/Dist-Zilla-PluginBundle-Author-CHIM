@@ -39,9 +39,12 @@ my %WriteMakefileArgs = (
     "Dist::Zilla::Plugin::TravisCI::StatusBadge" => "0.005",
     "Dist::Zilla::Role::PluginBundle::PluginRemover" => "0.102",
     "Moose" => "2.0",
+    "Path::Tiny" => 0,
     "Pod::Coverage::TrustPod" => 0,
+    "Pod::Weaver" => 4,
     "Pod::Weaver::Section::SeeAlso" => "1.003",
     "Test::CPAN::Meta" => 0,
+    "namespace::autoclean" => 0,
     "strict" => 0,
     "warnings" => 0
   },
@@ -52,7 +55,7 @@ my %WriteMakefileArgs = (
     "IPC::Open3" => 0,
     "Test::More" => 0
   },
-  "VERSION" => "0.052004",
+  "VERSION" => "0.052005",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -83,10 +86,13 @@ my %FallbackPrereqs = (
   "IO::Handle" => 0,
   "IPC::Open3" => 0,
   "Moose" => "2.0",
+  "Path::Tiny" => 0,
   "Pod::Coverage::TrustPod" => 0,
+  "Pod::Weaver" => 4,
   "Pod::Weaver::Section::SeeAlso" => "1.003",
   "Test::CPAN::Meta" => 0,
   "Test::More" => 0,
+  "namespace::autoclean" => 0,
   "strict" => 0,
   "warnings" => 0
 );
